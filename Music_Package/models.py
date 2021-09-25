@@ -14,11 +14,12 @@ import youtube_dl
 
 class Track:
 
-    def __init__(self, name, artist, sp_id, yt_id):
+    def __init__(self, name, artist, sp_id, yt_id, playlist_id):
         self.name = name
         self.artist = artist
         self.sp_id = sp_id
         self.yt_id = yt_id
+        self.playlist_id = playlist_id
 
     # exist spotify track
     def is_spotify(self):
@@ -111,6 +112,9 @@ def main():
     youtube = googleapiclient.discovery.build(
         api_service_name, api_version, credentials=credentials)
 
+    playlists = {}
+
+    # Getting youtube playlist
     request = youtube.playlists().list(
         part="snippet,contentDetails",
         maxResults=25,
